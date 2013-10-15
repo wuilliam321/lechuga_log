@@ -50,6 +50,10 @@ echo mysql_error($link);
 			
 			ga('create', 'UA-26375499-2', 'wlacruz.com.ve');
 			ga('send', 'pageview');
+			
+			FB.Event.subscribe('edge.create', function(targetUrl) {
+				ga('send', 'social', 'facebook', 'like', targetUrl);
+			});
 		</script>
 		<style>
 			/** Tables **/
