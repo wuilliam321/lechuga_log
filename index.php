@@ -34,6 +34,10 @@ echo mysql_error($link);
 <html>
 	<head>
 		<title>Hourly Lechuga</title>
+		<meta name="description" content="Conozca el precio de la lechuga verde en todo momento, un registro actualizado de los cambios en los precios de la mencionada divisa americana">
+		<meta name="keywords" content="Lechuga, Control Cambiario, Dolar, Precio Dolar, USD, Lechuga Verde, Lechugas, Precio Lechuga, Precio de la lechuga, Dolar paralelo, Divisa, Divisas">
+		<meta name="author" content="Wuilliam Lacruz">
+		<meta charset="UTF-8">
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
