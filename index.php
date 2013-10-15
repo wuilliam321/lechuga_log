@@ -159,6 +159,14 @@ echo mysql_error($link);
 					<strong><span itemprop="availability" content="in_stock">¡Búscalos mientras puedas!</span></strong>
 				</span>
 			</p>
+			<p><a href="#" 
+					onclick="
+					  window.open(
+						'https://www.facebook.com/sharer/sharer.php?u='+'http://www.wlacruz.com.ve/dolar/', 
+						'facebook-share-dialog', 
+						'width=626,height=436');
+					  ga('send', 'event', 'btn-sharer', 'click', 'fb', 1);
+					  return false;">¡Cuéntale a tus amigos de nosotros!</a></p>
 			<p>
 				<a href="http://jigsaw.w3.org/css-validator/check/referer">
 					<img style="border:0;width:88px;height:31px"
