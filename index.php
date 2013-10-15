@@ -149,7 +149,7 @@ echo mysql_error($link);
 					<meta itemprop="currency" content="VEF" />
 					<strong class="current"><span itemprop="price"><?php echo number_format($dolar, 4, ',', '.'); ?></span>
 					Bolívares Fuertísimos</strong> al
-					<time itemprop="priceValidUntil" datetime="<?php echo date("Y-m-d"); ?>">día de hoy.</time>
+					<time itemprop="priceValidUntil" datetime="<?php echo date("Y-m-d"); ?>">día de hoy <?php echo date("Y-m-d"); ?>.</time>
 					<br />
 					<strong><span itemprop="availability" content="in_stock">¡Búscalos mientras puedas!</span></strong>
 				</span>
