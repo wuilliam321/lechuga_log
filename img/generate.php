@@ -22,7 +22,7 @@ while ($row = mysql_fetch_array($response)) {
 
 $precios = array();
 $horas = array();
-rsort($data);
+$data = rsort($data);
 foreach ($data as $item) {
     $usd = number_format($item['usd'], 4);
     $precios[] = sprintf("%s", $usd);
