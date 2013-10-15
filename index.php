@@ -171,6 +171,8 @@ echo mysql_error($link);
 						'width=626,height=436');
 					  ga('send', 'event', 'btn-sharer', 'click', 'fb', 1);
 					  return false;">¡Cuéntale a tus amigos de nosotros!</a>
+			</p>
+			<p>
 				<script src="//connect.facebook.net/es_ES/all.js#xfbml=1"></script>
 				<fb:like></fb:like>
 			</p>
