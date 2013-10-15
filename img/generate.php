@@ -63,7 +63,7 @@ $myPicture->drawText(10,19,"Historial del Precio de la Lechuga por Hora",array("
 $myPicture->setFontProperties(array("FontName"=>"../fonts/calibri.ttf","FontSize"=>8,"R"=>0,"G"=>0,"B"=>0)); 
 
 /* Define the chart area */ 
-$myPicture->setGraphArea(60,40,650,200); 
+$myPicture->setGraphArea(60,55,680,200); 
 
 /* Draw the scale */ 
 $scaleSettings = array("XMargin"=>10,"YMargin"=>10,"Floating"=>TRUE,"GridR"=>200,"GridG"=>200,"GridB"=>200,"DrawSubTicks"=>TRUE,"CycleBackground"=>TRUE); 

@@ -26,7 +26,7 @@ registrarCambioDolar($link, $dolar, $dolar_en_pesos, $vef_en_pesos, date('Y-m-d 
 
 
 // Para llenar la tabla
-$sql = "SELECT * FROM `dl_dolar` order by id desc limit 8";
+$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 8 ) sub ORDER BY id ASC";
 $response = mysql_query($sql, $link);
 $data = array();
 echo mysql_error($link);
@@ -91,6 +91,9 @@ echo mysql_error($link);
 				margin: 0px 6px;
 				padding:2px 5px;
 			}
+			tr.current {
+				color: green;
+			}
 		</style>
 	</head>
 	<body>
@@ -106,20 +109,20 @@ echo mysql_error($link);
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="current">
-					<td><?php echo number_format($dolar_en_pesos, 2, ',', '.'); ?></td>
-					<td><?php echo number_format($vef_en_pesos, 2, ',', '.'); ?></td>
-					<td><?php echo number_format($dolar, 2, ',', '.'); ?></td>
-					<td><?php echo date('d M, H:ia'); ?></td>
-				</tr>
 				<?php while ($row = mysql_fetch_array($response)): ?>
 					<tr>
 						<td><?php echo number_format($row['cop'], 2, ',', '.'); ?></td>
 						<td><?php echo number_format($row['vef'], 2, ',', '.'); ?></td>
-						<td><?php echo number_format($row['usd'], 2, ',', '.'); ?></td>
+						<td><?php echo number_format($row['usd'], 4, ',', '.'); ?></td>
 						<td><?php echo date('d M, H:ia', strtotime($row['created'])); ?></td>
 					</tr>
 				<?php endwhile; ?>
+				<tr class="current">
+					<td><?php echo number_format($dolar_en_pesos, 2, ',', '.'); ?></td>
+					<td><?php echo number_format($vef_en_pesos, 2, ',', '.'); ?></td>
+					<td><?php echo number_format($dolar, 4, ',', '.'); ?></td>
+					<td><?php echo date('d M, H:ia'); ?></td>
+				</tr>
 			</tbody>
 		</table>
 	</body>
