@@ -165,7 +165,7 @@ echo mysql_error($link);
 						'https://www.facebook.com/sharer/sharer.php?u='+'http://www.wlacruz.com.ve/dolar/', 
 						'facebook-share-dialog', 
 						'width=626,height=436');
-					  ga('send', 'event', 'btn-sharer', 'click', 'fb', 1);
+					  ga('send', 'event', 'fb-sharer');
 					  return false;">¡Cuéntale a tus amigos de nosotros!</a></p>
 			<p>
 				<a href="http://jigsaw.w3.org/css-validator/check/referer">
