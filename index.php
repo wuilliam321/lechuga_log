@@ -19,7 +19,10 @@ $dolar_en_pesos = getDolarEnPesos();
 $vef_en_pesos = getBolivarEnPesos();
 
 // Calculando el dolar que es (dolar en pesos / bolivar en pesos) = asi se obtiene el monto del dolar en vef
-$dolar = $dolar_en_pesos / $vef_en_pesos;
+$dolar = 0;
+if ($vef_en_pesos > 0) {
+	$dolar = $dolar_en_pesos / $vef_en_pesos;
+}
 
 // Registrando cambios si es necesario
 registrarCambioDolar($link, $dolar, $dolar_en_pesos, $vef_en_pesos, date('Y-m-d H:i:s'));
