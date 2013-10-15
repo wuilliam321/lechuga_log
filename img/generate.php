@@ -13,7 +13,7 @@ $link = mysql_connect(HOST, USER, PASS);
 // Seleccionando la base de datos
 mysql_select_db(DATABASE, $link);
 
-$sql = "SELECT * FROM `dl_dolar` order by id desc limit 8";
+$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 8 ) sub ORDER BY id ASC";
 $response = mysql_query($sql, $link);
 $data = array();
 while ($row = mysql_fetch_array($response)) {
@@ -22,7 +22,7 @@ while ($row = mysql_fetch_array($response)) {
 
 $precios = array();
 $horas = array();
-$data = rsort($data);
+
 foreach ($data as $item) {
     $usd = number_format($item['usd'], 4);
     $precios[] = sprintf("%s", $usd);
