@@ -1,36 +1,113 @@
 <?php
-$link = mysql_connect('h0$t', 'u$er', 'pAs$');
-mysql_select_db('databa$e', $link);
+// Conexion a la base de datos
+include('includes/database.php');
+
+// Funciones
+include('includes/functions.php');
+
+// Incluyendo la libreria
 include('simple_html_dom.php');
 
-$n = (isset($_GET['val']) && !empty($_GET['val'])) ? $_GET['val'] : 1;
-$html = file_get_html("http://www.preciodolar.com/convert.php?from=USD&to=COP&val=$n");
-$pesos = $html->plaintext;
-$pesos = substr($pesos, 4, 7);
-echo "$n USD = " . number_format($pesos, 2, ".", "") . " COP";
-echo "<br />";
-$pesos = number_format($pesos, 2, ".", "");
+// Conectando a la base de datos
+$link = mysql_connect(HOST, USER, PASS);
 
-$html = file_get_html("http://www.laopinion.com.co/demo/");
-foreach($html->find('table.indicadores tbody tr.fondo td') as $e) {
-	$a = $e->plaintext;
-	break;
-}
-$dolar = substr($a, 1);
-echo "1 VEF = " . number_format($dolar, 2, ".", "") . " COP";
-echo "<br />";
-$dolar = number_format($dolar, 2, ".", "") ;
+// Seleccionando la base de datos
+mysql_select_db(DATABASE, $link);
 
-$resultado = $pesos / $dolar;
-echo "$pesos COP / $dolar COP = $resultado VEF";
+// Obteniendo los montos necesarios
+$dolar_en_pesos = getDolarEnPesos();
+$vef_en_pesos = getBolivarEnPesos();
 
-$sql = "SELECT * FROM `dl_dolar` order by id desc limit 1";
-$r = mysql_query($sql);
-$row = mysql_fetch_array($r);
-#echo number_format($row['usd'], 12, ".", "") ==  number_format($resultado, 12, ".", "");
-if ( number_format($row['usd'], 12, ".", "") != number_format($resultado, 12, ".", "")) {
-$sql = "INSERT INTO dl_dolar (usd, cop, vef, created) VALUES ($resultado, $pesos, $dolar, '" . date('Y-m-d H:i:s') . "')";
-mysql_query($sql);
-}
+// Calculando el dolar que es (dolar en pesos / bolivar en pesos) = asi se obtiene el monto del dolar en vef
+$dolar = $dolar_en_pesos / $vef_en_pesos;
+
+// Registrando cambios si es necesario
+registrarCambioDolar($link, $dolar, $dolar_en_pesos, $vef_en_pesos, date('Y-m-d H:i:s'));
+
+
+// Para llenar la tabla
+$sql = "SELECT * FROM `dl_dolar` order by id desc limit 8";
+$response = mysql_query($sql, $link);
+$data = array();
 echo mysql_error($link);
-echo '<h1 style="font-size: 6em;margin: 0;">' . number_format($resultado, 2, ".", "") . "</h1>";
+?>
+<html>
+	<head>
+		<title>Lechuga Today!</title>
+		<style>
+			/** Tables **/
+			hr {width: 700px; margin-left: 0}
+			table {
+				border-right:0;
+				clear: both;
+				color: #333;
+				margin-bottom: 10px;
+				width: 700px;
+			}
+			th {
+				border:0;
+				border-bottom:2px solid #555;
+				text-align: left;
+				padding:4px;
+			}
+			th a {
+				display: block;
+				padding: 2px 4px;
+				text-decoration: none;
+			}
+			th a.asc:after {
+				content: ' ⇣';
+			}
+			th a.desc:after {
+				content: ' ⇡';
+			}
+			table tr td {
+				padding: 6px;
+				text-align: left;
+				vertical-align: top;
+				border-bottom:1px solid #ddd;
+			}
+			table tr:nth-child(even) {
+				background: #f9f9f9;
+			}
+			td.actions {
+				text-align: center;
+				white-space: nowrap;
+			}
+			table td.actions a {
+				margin: 0px 6px;
+				padding:2px 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/generate.php?usd=<?php echo $dolar; ?>" />
+		<hr />
+		<table cellpadding="0" cellspacing="0">
+			<thead>
+				<tr>
+					<th>1 USD en COP</th>
+					<th>1 VEF en COP</th>
+					<th>1 USD en VEF</th>
+					<th>Fecha</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="current">
+					<td><?php echo number_format($dolar_en_pesos, 2, ',', '.'); ?></td>
+					<td><?php echo number_format($vef_en_pesos, 2, ',', '.'); ?></td>
+					<td><?php echo number_format($dolar, 2, ',', '.'); ?></td>
+					<td><?php echo date('d M, H:ia'); ?></td>
+				</tr>
+				<?php while ($row = mysql_fetch_array($response)): ?>
+					<tr>
+						<td><?php echo number_format($row['cop'], 2, ',', '.'); ?></td>
+						<td><?php echo number_format($row['vef'], 2, ',', '.'); ?></td>
+						<td><?php echo number_format($row['usd'], 2, ',', '.'); ?></td>
+						<td><?php echo date('d M, H:ia', strtotime($row['created'])); ?></td>
+					</tr>
+				<?php endwhile; ?>
+			</tbody>
+		</table>
+	</body>
+</html>
