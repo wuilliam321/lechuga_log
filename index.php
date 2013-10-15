@@ -49,7 +49,7 @@ echo mysql_error($link);
 		</script>
 		<style>
 			/** Tables **/
-			hr {width: 700px; margin-left: 0}
+			h2, h1, hr, p {width: 700px; margin-left: 0}
 			table {
 				border-right:0;
 				clear: both;
@@ -91,9 +91,11 @@ echo mysql_error($link);
 				margin: 0px 6px;
 				padding:2px 5px;
 			}
-			tr.current {
+			.current {
 				color: green;
 			}
+			h3 { display: inline }
+			h2, h1, p { text-align:  center }
 		</style>
 	</head>
 	<body>
@@ -125,5 +127,33 @@ echo mysql_error($link);
 				</tr>
 			</tbody>
 		</table>
+		<div itemscope itemtype="http://data-vocabulary.org/Product">
+			<h1>
+				Precio de la
+				<strong><span itemprop="name">Lechuga Verde</span></strong>
+			</h1>
+			<h2>Actualiza cada hora y registra su historial</h2>
+			<p>
+				<span itemprop="description">
+					El vegetal mas buscado en Venezuela, es el que provee de alimentos, vestimenta, medicina, juguetes y un largo etcétera.
+				</span>
+				Es una
+				<span itemprop="brand">Moneda</span>
+				<span itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+					<strong>producto
+					<span itemprop="rating">5</span>
+					estrellas</strong>
+				</span>
+				cuyo precio actual es de
+				<span itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+					<meta itemprop="currency" content="VEF" />
+					<strong class="current"><span itemprop="price"><?php echo number_format($dolar, 4, ',', '.'); ?></span>
+					Bolívares Fuertísimos</strong> al
+					<time itemprop="priceValidUntil" datetime="<?php echo date("Y-m-d"); ?>">día de hoy.</time>
+					<br />
+					<strong><span itemprop="availability" content="in_stock">¡Búscalos mientras puedas!</span></strong>
+				</span>
+			</p>
+		</div>
 	</body>
 </html>
