@@ -31,6 +31,7 @@ $response = mysql_query($sql, $link);
 $data = array();
 echo mysql_error($link);
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Hourly Lechuga</title>
@@ -96,10 +97,11 @@ echo mysql_error($link);
 			}
 			h3 { display: inline }
 			h2, h1, p { text-align:  center }
+			p a { text-decoration: none }
 		</style>
 	</head>
 	<body>
-		<img src="img/generate.php?usd=<?php echo $dolar; ?>" />
+		<img src="img/generate.php?usd=<?php echo $dolar; ?>" alt="Grafica de los cambios del precio de dolar organizados por hora" />
 		<hr />
 		<table cellpadding="0" cellspacing="0">
 			<thead>
@@ -153,6 +155,18 @@ echo mysql_error($link);
 					<br />
 					<strong><span itemprop="availability" content="in_stock">¡Búscalos mientras puedas!</span></strong>
 				</span>
+			</p>
+			<p>
+				<a href="http://jigsaw.w3.org/css-validator/check/referer">
+					<img style="border:0;width:88px;height:31px"
+						src="http://jigsaw.w3.org/css-validator/images/vcss"
+						alt="¡CSS Válido!" />
+				</a>
+				<a href="http://jigsaw.w3.org/css-validator/check/referer">
+					<img style="border:0;width:88px;height:31px"
+						src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+						alt="¡CSS Válido!" />
+				</a>
 			</p>
 		</div>
 	</body>
