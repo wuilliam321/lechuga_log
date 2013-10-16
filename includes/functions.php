@@ -34,7 +34,7 @@ function getUltimoRegistroDolar($link) {
 function registrarCambioDolar($link, $dolar, $dolar_en_pesos, $vef_en_pesos, $fecha) {
     $ultimo_registro = getUltimoRegistroDolar($link);
     // Si hay algun cambio se inserta un nuevo registro
-    if ( round(number_format($ultimo_registro, 12, ".", ""), 11) != round(number_format($dolar, 12, ".", ""), 11)) {
+    if ( round(number_format($ultimo_registro, 12, ".", ""), 11) != round(number_format($dolar, 12, ".", ""), 11) && $dolar > 0) {
         $sql = "INSERT INTO dl_dolar (usd, cop, vef, created) VALUES ($dolar, $dolar_en_pesos, $vef_en_pesos, '$fecha')";
         mysql_query($sql);
     }
