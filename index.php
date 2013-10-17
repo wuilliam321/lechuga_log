@@ -42,6 +42,7 @@ echo mysql_error($link);
 		<meta name="keywords" content="Lechuga, Control Cambiario, Dolar, Precio Dolar, USD, Lechuga Verde, Lechugas, Precio Lechuga, Precio de la lechuga, Dolar paralelo, Divisa, Divisas">
 		<meta name="author" content="Wuilliam Lacruz">
 		<meta charset="UTF-8">
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -53,6 +54,10 @@ echo mysql_error($link);
 			
 			FB.Event.subscribe('edge.create', function(targetUrl) {
 				ga('send', 'social', 'facebook', 'like', targetUrl);
+			});
+			
+			$('#facebook-share').on('click', function() {
+				ga('send', 'event', 'share', 'facebook');
 			});
 		</script>
 		<style>
@@ -128,6 +133,10 @@ echo mysql_error($link);
 						<td><?php echo date('d M, H:ia', strtotime($row['created'])); ?></td>
 					</tr>
 				<?php endwhile; ?>
+				<?php
+					//$sql = "SELECT count(id) FROM dl_dolar";
+					//$response = mysql_query($sql, $link);
+				?>
 				<tr class="current">
 					<td><?php echo number_format($dolar_en_pesos, 2, ',', '.'); ?></td>
 					<td><?php echo number_format($vef_en_pesos, 2, ',', '.'); ?></td>
@@ -163,13 +172,12 @@ echo mysql_error($link);
 					<strong><span itemprop="availability" content="in_stock">¡Búscalos mientras puedas!</span></strong>
 				</span>
 			</p>
-			<p><a href="#" 
+			<p><a href="#" id="facebook-share"
 					onclick="
 					  window.open(
 						'https://www.facebook.com/sharer/sharer.php?u='+'http://www.wlacruz.com.ve/dolar/', 
 						'facebook-share-dialog', 
 						'width=626,height=436');
-					  ga('send', 'event', 'btn-sharer', 'click', 'fb', 1);
 					  return false;">¡Cuéntale a tus amigos de nosotros!</a>
 			</p>
 			<p>
