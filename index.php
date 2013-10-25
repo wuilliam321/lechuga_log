@@ -29,7 +29,11 @@ registrarCambioDolar($link, $dolar, $dolar_en_pesos, $vef_en_pesos, date('Y-m-d 
 
 
 // Para llenar la tabla
-$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 8 ) sub ORDER BY id ASC";
+$sql = 'SELECT COUNT(*) as count FROM dl_dolar';
+$response = mysql_query($sql, $link);
+$count = mysql_fetch_array($response);
+$count = $count['count'];
+$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 12 ) sub ORDER BY id ASC";
 $response = mysql_query($sql, $link);
 $data = array();
 echo mysql_error($link);
@@ -160,7 +164,7 @@ echo mysql_error($link);
 				<span itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
 					<strong>producto
 					<span itemprop="rating">5</span>
-					estrellas</strong>
+					estrellas</strong> en <strong><?php echo $count; ?></strong> valoraciones
 				</span>
 				cuyo precio actual es de
 				<span itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
