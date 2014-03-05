@@ -13,7 +13,7 @@ $link = mysql_connect(HOST, USER, PASS);
 // Seleccionando la base de datos
 mysql_select_db(DATABASE, $link);
 
-$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 12 ) sub ORDER BY id ASC";
+$sql = "SELECT * FROM ( SELECT * FROM dl_dolar ORDER BY id DESC LIMIT 10 ) sub ORDER BY id ASC";
 $response = mysql_query($sql, $link);
 $data = array();
 while ($row = mysql_fetch_array($response)) {
